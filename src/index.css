@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Premium Dark Theme Color Palette */
+  --bg-primary: #0a0a0c;
+  /* Default Dark Theme ("Only Genius" style: Matte Black / Dark Grey) */
+  --bg-primary: #0a0a0b;
+  --bg-secondary: #121214;
+  --bg-tertiary: #1c1c1f;
+
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #475569;
+
+  --accent-primary: #3b82f6;
+  /* Blue for highlights */
+  --accent-secondary: #22c55e;
+  /* Green */
+  --accent-success: #10b981;
+  /* Emerald */
+  --accent-danger: #ef4444;
+  /* Red */
+  --accent-warning: #f59e0b;
+  /* Amber */
+
+  --border-light: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(59, 130, 246, 0.5);
+
+  --glass-bg: rgba(20, 20, 25, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Open Runde', system-ui, -apple-system, sans-serif;
+}
+
+.light {
+  /* Light Theme (Letters.app style) */
+  --bg-primary: #ffffff;
+  /* Main page background is white below hero */
+  --bg-secondary: #f8f9fa;
+  /* Light grey for cards */
+  --bg-tertiary: #f1f5f9;
+
+  --text-primary: #111827;
+  /* Near black */
+  --text-secondary: #6b7280;
+  /* Medium grey */
+  --text-muted: #9ca3af;
+
+  --accent-primary: #111827;
+  /* Buttons are black */
+  --accent-secondary: #8bc1e9;
+  /* Soft blue for highlights/accents */
+  --accent-danger: #dc2626;
+
+  --border-light: rgba(0, 0, 0, 0.05);
+  --border-focus: rgba(0, 0, 0, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image:
+    radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 25%);
+  background-attachment: fixed;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+
+
+/* Layout Utilities */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Typography Utilities */
+.text-gradient {
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-accent-gradient {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* --- RESPONSIVE UTILITIES --- */
+
+/* App Layout */
+.app-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.app-main {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-sidebar {
+  width: 280px;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 2rem;
+  transition: transform 0.3s ease;
+}
+
+/* Nav Links Container */
+.desktop-nav-links {
+  display: flex;
+  gap: 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-toggle-btn {
+  display: none;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 0.5rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0 0 1rem;
+  width: fit-content;
+}
+
+.mobile-overlay {
+  display: none !important;
+}
+
+/* Tablet Breakpoint */
+@media (max-width: 1024px) {
+  .mobile-overlay {
+    display: block !important;
+  }
+  /* Make Sidebar a Drawer on tablet */
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 2000;
+    transform: translateX(-100%);
+  }
+
+  .app-sidebar.open {
+    transform: translateX(0);
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+  }
+
+  /* Reduce Hero Cards Size on Tablet */
+  .hero-cards-container {
+    transform-origin: bottom center !important;
+    transform: translateX(-50%) scale(0.8) !important;
+    bottom: -80px !important;
+  }
+}
+
+/* Mobile Breakpoint */
+@media (max-width: 768px) {
+  .sidebar-toggle-btn {
+    display: flex !important;
+  }
+  /* Hide specific elements on mobile */
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  .desktop-nav-links {
+    display: none !important;
+  }
+
+  .mobile-menu-btn {
+    display: flex !important;
+  }
+
+  /* Stack flex rows to columns */
+  .flex-col-mobile {
+    flex-direction: column !important;
+  }
+
+  /* Change grid layouts */
+  .grid-1-mobile {
+    grid-template-columns: 1fr !important;
+  }
+
+  .grid-2-mobile {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Adjust padding for mobile */
+  .padding-mobile {
+    padding: 1rem !important;
+  }
+
+  .hero-padding-mobile {
+    padding: 3rem 1rem 0 !important;
+    padding-bottom: 10rem !important;
+  }
+
+  /* Reduce Hero Cards Size on Mobile */
+  .hero-cards-container {
+    transform-origin: bottom center !important;
+    transform: translateX(-50%) scale(0.65) !important;
+    bottom: -65px !important;
+  }
+}
